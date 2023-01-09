@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from 'next';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Head, Image, PostList } from '../components';
 import { generateRssFeed } from '../helpers/generateRssFeed';
