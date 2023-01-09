@@ -1,6 +1,6 @@
-# Blog of Andreas Klinger
+# Blog of Abdul Arbaaz
 
-In this repository you will find the source code for [klinger.io](https://klinger.io/).
+In this repository you will find the source code for [arbaaz.io](https://arbaaz.io/).
 
 ## Techstack
 

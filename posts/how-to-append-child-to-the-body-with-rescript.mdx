@@ -1,0 +1,70 @@
+---
+title: 'How to append child to the body with Rescript'
+publishedAt: '2021-05-25'
+summary: 'In this post, we will see how to append child to the body with Rescript.'
+---
+
+When you're learning rescript, you would want to render your Reactjs app to a DOM node. It is not as simple as `ReactDom.render(<App/>, #root)`.
+
+Here is how you can do it.
+
+First, go ahead install `bs-webapi` by running this command
+
+```plaintext
+npm install --save bs-webapi
+```
+
+Add the entry to bsconfig.json
+
+```plaintext
+"bs-dependencies": ["bs-webapi"],
+```
+
+use the following snippet
+
+```plaintext
+open Webapi.Dom
+open Belt
+
+document
+->Document.asHtmlDocument
+->Option.flatMap(document => document->HtmlDocument.body)
+->Option.map(body => {
+  let root = document->Document.createElement("div", _)
+  root->Element.setId("app")
+  // ReactDOM.render(<App />, root) // if you are using react
+  root->Element.appendChild(body)
+})
+->ignore
+```
+
+Edit: We can also write our own bindings for maintainability as suggested by [Patrick Ecker](https://twitter.com/ryyppy) over [here](https://forum.rescript-lang.org/t/how-to-append-child-to-the-body-with-rescript/1735)
+
+```plaintext
+module Webapi = {
+  module Element = {
+    @set external setId: (Dom.element, string) => unit = "id"
+    @send
+    external appendChild: (Dom.element, Dom.element) => unit = "appendChild"
+  }
+
+  module Document = {
+    @val external document: Dom.document = "document"
+    @get external body: Dom.document => Dom.element = "body"
+    @send external createElement: (t, string) => Dom.element = "createElement"
+  }
+}
+
+open Webapi
+
+let body = {
+  open Document
+  document->body
+}
+
+let root = Document.createElement("div")
+
+Element.appendChild(body, root)
+```
+
+[Playground](https://rescript-lang.org/try?code=LYewJgrgNgpgBAdRgIwIYAcCWcC8cDeAUHHKJLHAKKzAwB2ALrgcSXAAIDOMTMAHgxgAnOqihxuDAJJgAXHAAUAERDAAdDBr0GAGgkMhmOgHMAlLgB8cCHUxM8AIkxgHrEl3pg3cfoJFi4DHRPAGEAC0woOUUVdU0YWkY9WI0tRnMcKxs7Zgcg0Iio1xIAX0JWMmh4FQBjCET7FjY4BgBPYJby5vYANwDfYVFxMBA6hvlGhxGx7WK2dmMeHwFBgORwVonLOBT4htz1sFa59246MGW-IbgaoRhUQWoE7XkFXX1DEwyrXbTJ2-ujz+czKZUIIGCdEQKAwmHKsCYh1azCIJAh9B2o3q2lY02xjAAtBYkYQwQi4EIQCBGrV8Qw1HiGkTaQ01ACHjAng0FFNMD0HKZylztGp8udwpEwAokXpKdTBUA)

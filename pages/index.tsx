@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   // Genearte RSS feed and add it to public directory
   generateRssFeed(
     {
-      title: 'Blog posts of Andreas Klinger',
+      title: 'Blog posts of Abdul Arbaaz',
       description:
         'Learn more about startups, remote work, funding, software and useful tools I use. In the blog posts I share my experience from the past 10+ years.',
     },
@@ -47,22 +47,28 @@ const HomePage: NextPage<HomePageProps> = ({ posts }) => {
   return (
     <>
       <Head
-        title="Andreas Klinger"
+        title="Abdul Arbaaz"
         description="I am a product/eng-guy good in two things: Making people believe I am good in anything at all and making stuff worth a tweet. On this website I share notes &amp; thoughts."
       />
 
       <div className="flex items-center space-x-4 md:space-x-5 lg:space-x-6">
         <Image
           className="prevent-default w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12 rounded-full"
-          src="/images/andreas-klinger.jpg"
-          alt="Andreas Klinger"
+          src="/images/arbaazio.png"
+          alt="Abdul Arbaaz"
           sizes="(max-width: 768px) 32px, (max-width: 1024px) 40px, 48px"
         />
         <h1>Hey! ✌️</h1>
       </div>
 
-      <p className="mt-6 md:mt-8 lg:mt-10">My name is Andreas Klinger.</p>
+      <p className="mt-6 md:mt-8 lg:mt-10">My name is Abdul Arbaaz.</p>
+
       <p>
+        I am a passionate polyglot programmer with a belief in choosing the
+        correct programing language for the job at hand.
+      </p>
+      <p>Although I have a soft spot for Functional languages.</p>
+      {/* <p>
         I was founding team &amp; CTO of{' '}
         <a href="https://www.producthunt.com" target="_blank" rel="noreferrer">
           Product Hunt
@@ -75,8 +81,7 @@ const HomePage: NextPage<HomePageProps> = ({ posts }) => {
         <a href="https://www.angellist.com" target="_blank" rel="noreferrer">
           AngelList
         </a>
-        , and CTO at{' '}
-        <a href="https://www.beondeck.com">On Deck</a>.
+        , and CTO at <a href="https://www.beondeck.com">On Deck</a>.
       </p>
       <p>
         I also angel invest via{' '}
@@ -102,21 +107,21 @@ const HomePage: NextPage<HomePageProps> = ({ posts }) => {
           <a>summarize some learnings</a>
         </Link>
         .
-      </p>
+      </p> */}
 
       <ul className="prevent-default flex space-x-8 md:space-x-9 lg:space-x-10 mt-6 md:mt-8 lg:mt-10">
         {[
           {
             Icon: TwitterColorIcon,
-            href: 'https://twitter.com/andreasklinger',
+            href: 'https://twitter.com/arbaazio',
           },
           {
             Icon: LinkedInColorIcon,
-            href: 'https://www.linkedin.com/in/andreasklinger',
+            href: 'https://www.linkedin.com/in/abdularbaaz',
           },
           {
             Icon: GitHubIcon,
-            href: 'https://github.com/andreasklinger',
+            href: 'https://github.com/arbaaz',
           },
         ].map(({ href, Icon }) => (
           <li key={href}>
@@ -135,7 +140,7 @@ const HomePage: NextPage<HomePageProps> = ({ posts }) => {
         <small>
           PS: If you find typos or got ideas how to improve articles, feel free
           to{' '}
-          <a href="https://github.com/andreasklinger/klinger-io">
+          <a href="https://github.com/arbaaz/arbaazio">
             send me a pull request
           </a>
         </small>
