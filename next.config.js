@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  swcMinify: false,
   productionBrowserSourceMaps: false,
   webpack: (config, { dev, isServer }) => {
     // Replace React.js with Preact.js in production build
