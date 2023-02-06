@@ -9,6 +9,9 @@ import 'tailwindcss/tailwind.css';
 import '../styles/font.css';
 import '../styles/global.css';
 
+import '@code-hike/mdx/dist/index.css';
+
+
 function MyApp({ Component, pageProps }: AppProps) {
   // Add Next.js router hook
   const router = useRouter();

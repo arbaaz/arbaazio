@@ -9,6 +9,18 @@ import { Head, PostImage } from '../../components';
 import { fetchDatabase } from '../../helpers/fetchDatabase';
 import { useViews } from '../../hooks';
 import { PostFrontMatter, Post } from '../../types';
+import rehypeHighlight from 'rehype-highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
+import rescript from '../../plugins/rescript-higlightjs';
+
+// import 'highlight.js/styles/github.css';
+
+const languages = {
+  javascript: javascript,
+  rescript: rescript,
+};
+
+const aliases = { dockerfile: 'docker' };
 
 // Build time Node.js code
 export async function getStaticPaths() {
@@ -40,7 +52,30 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
   // Read and bundle MDX source code
   const filePath = join(process.cwd(), 'posts', `${slug}.mdx`);
   const mdxSource = readFileSync(filePath, 'utf8');
-  const bundleResult = await bundleMDX({ source: mdxSource });
+  const bundleResult = await bundleMDX({
+    source: mdxSource,
+    xdmOptions(options) {
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        // myRemarkPlugin,
+      ];
+
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        // myRehypePlugin,
+        [
+          rehypeHighlight,
+          {
+            ignoreMissing: true,
+            languages,
+            aliases,
+          },
+        ],
+      ];
+
+      return options;
+    },
+  });
 
   // Create necessary post data for client
   const sourceCode = bundleResult.code;
